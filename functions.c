@@ -16,24 +16,23 @@ void viewLeaderboard(){
 }
 
 int checkName(char* name){
-	char line[100];
+	char line[100], copy[100];
+	int count = 0;
 	FILE* file = fopen("Files/leaderboard.txt", "r");
 	if (file == NULL) { 
 		perror("Error opening file"); 
 		return 0;
 	}
 	while(fgets(line, sizeof(line), file)){
-		for(int i = 0; i < strlen(name); i++){
-			if(line[i] == name[i]){
-				return 1;
-			}
-		}
+		strncpy(copy, line, strlen(name));
+		if(strcmp(name, copy) == 0)
+			return 1;
 	}
 	return 0;
 }
 
 void addToLeaderboard(char* name, int score){
-	if(checkName(name)){
+	if(checkName(name) == 1){
 		printf("Name already exists.\n");
 		return;
 	}
