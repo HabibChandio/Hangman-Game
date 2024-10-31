@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "functions.h"
 
 int main(){
 	int choice, score = 0;
 	char name[50];
+	char* word = (char*)malloc(20*sizeof(char));
 	
 	printf("------------------------HANGMAN------------------------\n\n");
 	do{
@@ -17,6 +19,7 @@ int main(){
 				getchar();
 				fgets(name, 50, stdin);
 				addToLeaderboard(name, score);
+				//game logic
 				break;
 			case 2:
 				viewLeaderboard();

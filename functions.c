@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "functions.h"
 
 void viewLeaderboard(){
@@ -16,17 +17,20 @@ void viewLeaderboard(){
 }
 
 int checkName(char* name){
-	char line[100], copy[100];
-	int count = 0;
+	char line[100], copy[50];
 	FILE* file = fopen("Files/leaderboard.txt", "r");
 	if (file == NULL) { 
 		perror("Error opening file"); 
 		return 0;
 	}
 	while(fgets(line, sizeof(line), file)){
-		strncpy(copy, line, strlen(name));
-		if(strcmp(name, copy) == 0)
+		sscanf(line, "%49s", copy);
+		printf("copy: %s, name: %s", copy, name);
+		name[strcspn(name, "\n")] = 0;
+		if(strcmp(name, copy) == 0){
+			printf(", copy: %s", copy);
 			return 1;
+		}
 	}
 	return 0;
 }
@@ -36,12 +40,33 @@ void addToLeaderboard(char* name, int score){
 		printf("Name already exists.\n");
 		return;
 	}
-	FILE* file = fopen("Files/leaderboard.txt", "a");
+	else{
+		FILE* file = fopen("Files/leaderboard.txt", "a");
+		if (file == NULL) { 
+			perror("Error opening file"); 
+			return;
+		}
+		name[strcspn(name, "\n")] = 0;
+		fprintf(file, "%s\t%d\n", name, score);
+		fclose(file);
+	}
+}
+
+char* getWord(int line){
+	char* word = (char*)malloc(20*sizeof(char));
+	int currentLine = 1;
+	FILE* file = fopen("Files/words.txt", "r");
 	if (file == NULL) { 
 		perror("Error opening file"); 
-		return;
+		return NULL;
 	}
-	name[strcspn(name, "\n")] = 0;
-	fprintf(file, "%s: %d\n", name, score);
-	fclose(file);
+	while(fgets(word, sizeof(word), file)){
+		if(currentLine == line){
+			fclose(file);
+    		return word;
+		}
+		currentLine++;
+	}
+	printf("getWord(): Incorrect Index.\n");
+	return NULL;
 }
