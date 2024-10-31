@@ -19,7 +19,8 @@ int main(){
 				getchar();
 				fgets(name, 50, stdin);
 				addToLeaderboard(name, score);
-				//game logic
+				word = getWord(3);
+				puts(word);
 				break;
 			case 2:
 				viewLeaderboard();

@@ -25,10 +25,8 @@ int checkName(char* name){
 	}
 	while(fgets(line, sizeof(line), file)){
 		sscanf(line, "%49s", copy);
-		printf("copy: %s, name: %s", copy, name);
 		name[strcspn(name, "\n")] = 0;
 		if(strcmp(name, copy) == 0){
-			printf(", copy: %s", copy);
 			return 1;
 		}
 	}
