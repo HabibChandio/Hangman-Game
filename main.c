@@ -10,28 +10,28 @@ int main(){
 	printf("------------------------HANGMAN------------------------\n\n");
 	do{
 		printf("1. Start game\n2. View leaderboard\n3. Quit\n");
+		getchar();
 		scanf("%d", &choice);		
-		
-		switch(choice) 
-		{			
-			case 1:
+					
+			if(choice == 1) {
 				printf("Enter Your Name: ");
 				getchar();
 				fgets(name, 50, stdin);
 				addToLeaderboard(name, score);
 				word = getWord(3);
-				puts(word);
-				break;
-			case 2:
+				puts(word); 			
+			}		
+			else if(choice == 2) {
 				viewLeaderboard();
-				break;
-			case 3:
+			}
+			else if(choice == 3) {
 				printf("Thanks for playing!!!\n");
 				return 0;
-				break;
-			default:
+			}
+			else {
 				printf("Incorrect input!\n");
-				continue;			
+				continue;
+			}
 		}
 	}while(1);
 	return 0;
