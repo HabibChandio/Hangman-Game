@@ -1,5 +1,5 @@
 [Project]
-filename=Hangman Game.dev
+filename=Hangman_Game.dev
 name=Hangman Game
 Type=1
 Ver=2
@@ -51,16 +51,6 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=main.c
-CompileCpp=1
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
 FileName=functions.h
 CompileCpp=1
 Folder=
@@ -70,8 +60,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit3]
+[Unit2]
 FileName=functions.c
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit3]
+FileName=main.c
 CompileCpp=1
 Folder=
 Compile=1
