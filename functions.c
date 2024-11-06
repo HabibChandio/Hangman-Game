@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "functions.h"
 
 void viewLeaderboard(){
@@ -97,12 +98,12 @@ void sortLeaderboard(){
 char* getWord(int line){
 	char* word = (char*)malloc(20*sizeof(char));
 	int currentLine = 1;
-	FILE* file = fopen("Files/name.txt", "r");
+	FILE* file = fopen("Files/words.txt", "r");
 	if (file == NULL) { 
 		perror("Error opening file"); 
 		return NULL;
 	}
-	while(fgets(word, sizeof(word), file)){
+	while(fgets(word, 20, file)){
 		if(currentLine == line){
 			fclose(file);
     		return word;
@@ -111,4 +112,10 @@ char* getWord(int line){
 	}
 	printf("getWord(): Incorrect Index.\n");
 	return NULL;
+}
+
+int randIndex(int wordCount,int max){
+	srand(time(0));
+    int randomIndex =(rand() % wordCount)+max;
+    return randomIndex;
 }

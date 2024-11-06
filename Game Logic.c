@@ -17,20 +17,19 @@ int main() {
     char guessWord[50];
 
 
-    // Random word generation
-    srand(time(NULL));
+	srand(time(NULL));
     int randomIndex = rand() % wordCount;
     strcpy(currentWord, words[randomIndex]);
     
     // Initial design
-    printf("Enter your name: ");
+    /*printf("Enter your name: ");
     fgets(name, sizeof(name), stdin);
     printf("\t   HANGMAN\n");
-    printf("\tGUESS THE WORD\n");
+    printf("\tGUESS THE WORD\n");*/
     
     for (int o=0;o<strlen(currentWord);o++)
     {
-    	guessWord[o] ='_';
+    	guessWord[o] = '_';
 	}
     printf("\n");
     guessWord[strlen(currentWord)] = '\0'; 
@@ -63,6 +62,7 @@ int main() {
 
     if (lives > 0) {
         printf("\nVOALAH ! %s \nYOU GUESSED IT WITH %d LIVES REMAINING\nThe word was %s", name, lives,currentWord);
+        
     } else {
         printf("\nYOU FAILED :( The word was %s\n", currentWord);
     }
