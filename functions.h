@@ -6,6 +6,6 @@ int checkName(char* name);
 void addToLeaderboard(char* name, int score);
 void sortLeaderboard();
 char* getWord(int line);
-int randIndex(int wordCount,int max);
+int randInteger(int max, int min);
 void printHangman(int lives);
 #endif

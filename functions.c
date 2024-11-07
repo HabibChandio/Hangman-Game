@@ -94,7 +94,7 @@ char* getWord(int line){
 	char* word = (char*)malloc(20*sizeof(char));
 	int currentLine = 1;
 	FILE* file = fopen("Files/words.txt", "r");
-	if (file == NULL) { 
+	if (file == NULL){ 
 		perror("Error opening file"); 
 		return NULL;
 	}
@@ -109,10 +109,8 @@ char* getWord(int line){
 	return NULL;
 }
 
-int randIndex(int wordCount,int max){
-	srand(time(0));
-    int randomIndex =(rand() % wordCount)+max;
-    return randomIndex;
+int randInteger(int max, int min){
+	return rand() % (max - min + 1) + min;
 }
 
 void printHangman(int lives){

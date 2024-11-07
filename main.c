@@ -2,14 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 #include "functions.h"
 
 int main()
 {
-	int lives = 6, wordCount = 30, max = 0, flag = 0, choice = 0, score = 0;
+	int lives = 6, min= 0, max = 30, flag = 0, choice = 0, score = 0;
     char name[20], alpha, guessWord[50];
 	char* word = (char*)malloc(20*sizeof(char));
-	
+	srand(time(NULL));
 	do{
 		printf("-------------WELCOME TO HANGMAN-------------\n\n");
 		printf("1. Start\n2. Leaderboard\n3. Quit\n");
@@ -29,15 +30,15 @@ int main()
 			}while(1);
 			system("cls");	
 			for(int i = 0; i < 10 && lives > 0; i++){
-				if (i == 2){
-					wordCount = 30;
-					max = 30;
-    			}
-    			else if (i == 5){
-					wordCount = 40;
+				if (i > 1){
+					min = 30;
 					max = 60;
     			}
-    			strcpy(word, getWord(randIndex(wordCount, max)));
+    			else if (i > 4){
+					min = 60;
+					max = 100;
+    			}
+    			strcpy(word, getWord(randInteger(max, min)));
 				for (int j = 0; j < strlen(word) - 1; j++){			
 					   	guessWord[j] = '_';
 				}    
@@ -47,11 +48,11 @@ int main()
 				while(lives>0) {
 		       		flag = 0;
 		       		if(i < 2)
-				        	printf("DIFFICULTY: EASY\n");
-				        else if(i < 5)
-				        	printf("DIFFICULTY: MEDIUM\n");
-				        else
-				        	printf("DIFFICULTY: HARD\n");
+				        printf("DIFFICULTY: EASY\n");
+				    else if(i < 5)
+				        printf("DIFFICULTY: MEDIUM\n");
+				    else
+				        printf("DIFFICULTY: HARD\n");
 				    printHangman(lives);
 		       		printf("\n%s\n\n",guessWord);
 		       		printf("Guess a character: ");
@@ -66,7 +67,6 @@ int main()
 					if (flag == 0){
 						lives--;
 				    }		
-					// Check if out of lives and break out of the loop
 					if (lives <= 0){
 				        break;
 				    }
@@ -77,6 +77,7 @@ int main()
 				        	score += 10;
 				        else
 				        	score += 15;
+				        lives = 6;
 				        break;
 					}   		  
 				}
@@ -88,6 +89,7 @@ int main()
 			viewLeaderboard();
 			printf("\n");
 			lives = 6;
+			free(word);
 		}
 		else if(choice == 2){
 			printf("--------Leaderboard--------\n\n");
@@ -102,7 +104,8 @@ int main()
 			
 		else
 			printf("Invalid input\n");
+			free(word);
 	  }while(1);
-	    
+	free(word);
 	return 0;
 }
