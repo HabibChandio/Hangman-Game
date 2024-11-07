@@ -41,22 +41,17 @@ int checkName(char* name){
 }
 
 void addToLeaderboard(char* name, int score){
-	if(checkName(name) == 1){
-		printf("Name already exists.\n");
+	FILE* file = fopen("Files/leaderboard.txt", "a");
+	if (file == NULL) { 
+		perror("Error opening file"); 
 		return;
 	}
-	else{
-		FILE* file = fopen("Files/leaderboard.txt", "a");
-		if (file == NULL) { 
-			perror("Error opening file"); 
-			return;
-		}
-		name[strcspn(name, "\n")] = 0;
-		fprintf(file, "%-20s %5d\n", name, score);
-		sortLeaderboard();
-		fclose(file);
-	}
+	name[strcspn(name, "\n")] = 0;
+	fprintf(file, "%-20s %5d\n", name, score);
+	fclose(file);
+	sortLeaderboard();
 }
+
 
 void sortLeaderboard(){
 	char names[100][50], line[100], tempChar[50];
@@ -118,4 +113,75 @@ int randIndex(int wordCount,int max){
 	srand(time(0));
     int randomIndex =(rand() % wordCount)+max;
     return randomIndex;
+}
+
+void printHangman(int lives){
+    switch(lives) {
+        case 6:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "      |\n"
+                   "      |\n"
+                   "      |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        case 5:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "  O   |\n"
+                   "      |\n"
+                   "      |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        case 4:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "  O   |\n"
+                   "  |   |\n"
+                   "      |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        case 3:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "  O   |\n"
+                   " /|   |\n"
+                   "      |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        case 2:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "  O   |\n"
+                   " /|\\  |\n"
+                   "      |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        case 1:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "  O   |\n"
+                   " /|\\  |\n"
+                   " /    |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        case 0:
+            printf("  +---+\n"
+                   "  |   |\n"
+                   "  O   |\n"
+                   " /|\\  |\n"
+                   " / \\  |\n"
+                   "      |\n"
+                   "=========\n");
+            break;
+        default:
+            printf("Invalid number of lives!\n");
+            break;
+    }
 }
