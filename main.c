@@ -3,13 +3,14 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <ctype.h>
 #include "functions.h"
 
 int main()
 {
 	int lives = 6, min= 0, max = 30, flag = 0, choice = 0, score = 0;
     char name[20], alpha, guessWord[50];
-	char* word = (char*)malloc(20*sizeof(char));
+	char word[20];
 	srand(time(NULL));
 	do{
 		printf("-------------WELCOME TO HANGMAN-------------\n\n");
@@ -30,7 +31,7 @@ int main()
 			}while(1);
 			system("cls");	
 			for(int i = 0; i < 10 && lives > 0; i++){
-				if (i > 1){
+				if (i > 2 && i < 5){
 					min = 30;
 					max = 60;
     			}
@@ -45,6 +46,7 @@ int main()
 				guessWord[strlen(word) - 1] = '\0'; 
     			word[strcspn(word, "\n")] = 0;
     			guessWord[strcspn(guessWord, "\n")] = 0;
+    			getHint(word,guessWord);
 				while(lives>0) {
 		       		flag = 0;
 		       		if(i < 2)
@@ -56,7 +58,9 @@ int main()
 				    printHangman(lives);
 		       		printf("\n%s\n\n",guessWord);
 		       		printf("Guess a character: ");
-		        	scanf(" %c", &alpha);   
+		        	scanf(" %c", &alpha);
+		        	alpha = toupper(alpha);
+		        	
 		        	for (int k = 0; k < strlen(guessWord); k++){
 				        if (alpha == word[k]){
 				            flag = 1;
@@ -89,7 +93,6 @@ int main()
 			viewLeaderboard();
 			printf("\n");
 			lives = 6;
-			free(word);
 		}
 		else if(choice == 2){
 			printf("--------Leaderboard--------\n\n");
@@ -104,8 +107,6 @@ int main()
 			
 		else
 			printf("Invalid input\n");
-			free(word);
 	  }while(1);
-	free(word);
 	return 0;
 }

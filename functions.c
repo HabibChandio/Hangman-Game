@@ -110,7 +110,7 @@ char* getWord(int line){
 }
 
 int randInteger(int max, int min){
-	return rand() % (max - min + 1) + min;
+	return (rand() % (max - min + 1)) + min;
 }
 
 void printHangman(int lives){
@@ -182,4 +182,20 @@ void printHangman(int lives){
             printf("Invalid number of lives!\n");
             break;
     }
+    
+
+}
+char* getHint(char* currentWord, char* guessWord) {
+ 	int j=0;
+	do{
+    int i = rand() % strlen(currentWord); 
+    guessWord[i] = currentWord[i];
+    j++;
+    for (int k = 0; k < strlen(guessWord); k++){
+		if (currentWord[k] == currentWord[i]){
+			guessWord[k]=currentWord[i];
+		}
+	}}
+	while ((strlen(currentWord)/3)>j);
+    return guessWord;
 }
