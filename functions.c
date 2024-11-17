@@ -15,7 +15,7 @@ void viewLeaderboard(){
 	while(fgets(line, sizeof(line), file)){
 		printf("%s", line);
 		count++;
-		if(count == 10){
+		if(count == 11){
 			fclose(file);
 			return;
 		}

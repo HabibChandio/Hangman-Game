@@ -8,7 +8,7 @@
 
 int main()
 {
-	int lives = 6, min= 0, max = 30, flag = 0, choice = 0, score = 0;
+	int lives = 6, min = 1, max = 30, flag = 0, choice = 0, score = 0;
     char name[20], alpha, guessWord[50];
 	char word[20];
 	srand(time(NULL));
@@ -21,8 +21,7 @@ int main()
 		if(choice == 1){
 			do{	
 				printf("Enter your name: ");
-				getchar();
-				gets(name);
+				scanf(" %s", &name);
 				if(checkName(name) == 1){
 					printf("Name already exists.\n");
 				}
@@ -31,7 +30,7 @@ int main()
 			}while(1);
 			system("cls");	
 			for(int i = 0; i < 10 && lives > 0; i++){
-				if (i > 2 && i < 5){
+				if (i > 1 && i < 5){
 					min = 30;
 					max = 60;
     			}
@@ -67,7 +66,7 @@ int main()
 				            guessWord[k]=alpha;
 		                }
 		        	}
-					system("cls"); 
+					system("cls");
 					if (flag == 0){
 						lives--;
 				    }		
@@ -75,7 +74,7 @@ int main()
 				        break;
 				    }
 				    if(strcmp(guessWord,word)==0){
-				        if(i < 2)
+						if(i < 2)
 				        	score += 5;
 				        else if(i < 5)
 				        	score += 10;
@@ -83,8 +82,11 @@ int main()
 				        	score += 15;
 				        lives = 6;
 				        break;
-					}   		  
+					}    		  
 				}
+				printf("The word was: %s!\n", word);
+				sleep(1);
+				system("cls");
 			}
 			printf("You scored: %d!!!!\n", score);
 			addToLeaderboard(name, score);
@@ -93,6 +95,7 @@ int main()
 			viewLeaderboard();
 			printf("\n");
 			lives = 6;
+			score = 0;
 		}
 		else if(choice == 2){
 			printf("--------Leaderboard--------\n\n");
