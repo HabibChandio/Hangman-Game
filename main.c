@@ -71,9 +71,11 @@ int main()
 						lives--;
 				    }		
 					if (lives <= 0){
+						printf("You gussed wrong!!!\n");
 				        break;
 				    }
 				    if(strcmp(guessWord,word)==0){
+				    	printf("You guessed correct!!!\n");
 						if(i < 2)
 				        	score += 5;
 				        else if(i < 5)
