@@ -91,7 +91,7 @@ void sortLeaderboard(){
 }
 
 char* getWord(int line){
-	char* word = (char*)malloc(20*sizeof(char));
+	static char word[20];
 	int currentLine = 1;
 	FILE* file = fopen("Files/words.txt", "r");
 	if (file == NULL){ 
