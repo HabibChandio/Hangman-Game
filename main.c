@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include <windows.h>
 #include <time.h>
 #include <ctype.h>
 #include "functions.h"
@@ -9,14 +9,13 @@
 int main()
 {
 	int lives = 6, min = 1, max = 30, flag = 0, choice = 0, score = 0;
-    char name[20], alpha, guessWord[50];
-	char word[20];
+    char name[20], alpha, guessWord[50], word[20];
 	srand(time(NULL));
 	do{
 		printf("-------------WELCOME TO HANGMAN-------------\n\n");
 		printf("1. Start\n2. Leaderboard\n3. Quit\n");
 		printf("Selection(1 - 3): ");
-		scanf("%d",&choice);
+		scanf(" %d", &choice);
 		system("cls"); 
 		if(choice == 1){
 			do{	
@@ -43,8 +42,8 @@ int main()
 					   	guessWord[j] = '_';
 				}    
 				guessWord[strlen(word) - 1] = '\0'; 
-    			word[strcspn(word, "\n")] = 0;
-    			guessWord[strcspn(guessWord, "\n")] = 0;
+    			word[strcspn(word, "\n")] = '\0';
+    			guessWord[strcspn(guessWord, "\n")] = '\0';
     			getHint(word,guessWord);
 				while(lives>0) {
 		       		flag = 0;
@@ -63,7 +62,7 @@ int main()
 		        	for (int k = 0; k < strlen(guessWord); k++){
 				        if (alpha == word[k]){
 				            flag = 1;
-				            guessWord[k]=alpha;
+				            guessWord[k] = alpha;
 		                }
 		        	}
 					system("cls");
@@ -74,7 +73,7 @@ int main()
 						printf("You gussed wrong!!!\n");
 				        break;
 				    }
-				    if(strcmp(guessWord,word)==0){
+				    if(strcmp(guessWord,word) == 0){
 				    	printf("You guessed correct!!!\n");
 						if(i < 2)
 				        	score += 5;
@@ -87,29 +86,24 @@ int main()
 					}    		  
 				}
 				printf("The word was: %s!\n", word);
-				sleep(1);
+				Sleep(1000);
 				system("cls");
 			}
 			printf("You scored: %d!!!!\n", score);
 			addToLeaderboard(name, score);
-			printf("--------Leaderboard--------\n\n");
-			printf("%-20s %5s\n\n", "NAMES", "SCORE");
 			viewLeaderboard();
 			printf("\n");
 			lives = 6;
 			score = 0;
 		}
 		else if(choice == 2){
-			printf("--------Leaderboard--------\n\n");
-			printf("%-20s %5s\n\n", "NAMES", "SCORE");
 			viewLeaderboard();
 			printf("\n");
 		} 
 		else if(choice == 3){
 			printf("Thanks for playing.\n");
-			return 0;
+			break;
 		}
-			
 		else
 			printf("Invalid input\n");
 	  }while(1);
