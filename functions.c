@@ -48,7 +48,7 @@ void sortLeaderboard(){
 	int scores[100], lineNo = 0, tempInt = 0, index = 0;
 	FILE* file = fopen("Files/leaderboard.txt", "r");
 	while(fgets(line, sizeof(line), file)){
-		sscanf(line, "%49s\t%d", names[lineNo], &scores[lineNo]);
+		sscanf(line, "%s %d", names[lineNo], &scores[lineNo]);
 		lineNo++;
 	}
 	fclose(file);
@@ -72,19 +72,18 @@ void sortLeaderboard(){
 	fclose(file);
 }
 
-char* getWord(int line){
-	static char word[20];
+void getWord(char* word,int line){
 	int currentLine = 1;
 	FILE* file = fopen("Files/words.txt", "r");
 	while(fgets(word, 20, file)){
 		if(currentLine == line){
 			fclose(file);
-    		return word;
+    		return;
 		}
 		currentLine++;
 	}
 	printf("getWord(): Incorrect Index.\n");
-	return NULL;
+	return;
 }
 
 int randInteger(int max, int min){
@@ -162,17 +161,17 @@ void printHangman(int lives){
     }
 }
 
-char* getHint(char* currentWord, char* guessWord) {
+void getHint(char* currentWord, char* guessWord) {
  	int j=0;
 	do{
-    int i = rand() % strlen(currentWord); 
-    guessWord[i] = currentWord[i];
-    j++;
-    for (int k = 0; k < strlen(guessWord); k++){
-		if (currentWord[k] == currentWord[i]){
-			guessWord[k]=currentWord[i];
+    	int i = rand() % strlen(currentWord); 
+    	guessWord[i] = currentWord[i];
+    	j++;
+    	for (int k = 0; k < strlen(guessWord); k++){
+			if (currentWord[k] == currentWord[i]){
+				guessWord[k]=currentWord[i];
+			}
 		}
-	}}
-	while ((strlen(currentWord)/3)>j);
-    return guessWord;
+	}while ((strlen(currentWord)/3)>j);
+    return;
 }

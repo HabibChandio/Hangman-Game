@@ -8,7 +8,7 @@
 
 int main()
 {
-	int lives = 6, min = 1, max = 30, flag = 0, choice = 0, score = 0;
+	int lives = 6, min, max, flag = 0, choice = 0, score = 0;
     char name[20], alpha, guessWord[50], word[20];
 	srand(time(NULL));
 	do{
@@ -29,15 +29,19 @@ int main()
 			}while(1);
 			system("cls");	
 			for(int i = 0; i < 10 && lives > 0; i++){
-				if (i > 1 && i < 5){
+				if(i < 2){
+					min = 1;
+					max = 30;
+				}
+				else if(i < 5){
 					min = 30;
 					max = 60;
     			}
-    			else if (i > 4){
+    			else{
 					min = 60;
 					max = 100;
     			}
-    			strcpy(word, getWord(randInteger(max, min)));
+    			getWord(word,randInteger(max, min));
 				for (int j = 0; j < strlen(word) - 1; j++){			
 					   	guessWord[j] = '_';
 				}    
