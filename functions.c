@@ -26,7 +26,7 @@ int checkName(char* name){
 	FILE* file = fopen("Files/leaderboard.txt", "r");
 	while(fgets(line, sizeof(line), file)){
 		sscanf(line, "%49s", copy);
-		name[strcspn(name, "\n")] = 0;
+		name[strcspn(name, "\n")] = '\0';
 		if(strcmp(name, copy) == 0){
 			return 1;
 		}
@@ -36,7 +36,7 @@ int checkName(char* name){
 
 void addToLeaderboard(char* name, int score){
 	FILE* file = fopen("Files/leaderboard.txt", "a");
-	name[strcspn(name, "\n")] = 0;
+	name[strcspn(name, "\n")] = '\0';
 	fprintf(file, "%-20s %5d\n", name, score);
 	fclose(file);
 	sortLeaderboard();

@@ -1,5 +1,6 @@
 tey                     55
 Habib                   40
+Names                   30
 e                        5
-w                        0
 Chandio                  0
+w                        0

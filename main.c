@@ -21,7 +21,7 @@ int main()
 			do{	
 				printf("Enter your name: ");
 				scanf(" %s", &name);
-				if(checkName(name) == 1){
+				if(checkName(name)){
 					printf("Name already exists.\n");
 				}
 				else
@@ -49,7 +49,7 @@ int main()
     			word[strcspn(word, "\n")] = '\0';
     			guessWord[strcspn(guessWord, "\n")] = '\0';
     			getHint(word,guessWord);
-				while(lives>0) {
+				while(lives > 0){
 		       		flag = 0;
 		       		if(i < 2)
 				        printf("DIFFICULTY: EASY\n");
